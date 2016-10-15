@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<script type="text/javascript" src="js/lufylegend-1.10.1.min.js"></script>
+</head>
+<body>
+	<div id="mylegend">loading</div>
+	<script type="text/javascript">
+		var width = window.screen.width;
+		var height = window.screen.height;
+		console.log(width);
+		var loader;
+		init(50,"mylegend",500,350,main);
+
+		var field;
+		function main () {
+			loader = new LLoader();
+			loader.addEventListener(LEvent.COMPLETE,loadBitmapdata);
+			loader.load("src/head.jpg","bitmapData");
+		}
+		function loadBitmapdata(event){
+			var bitmapData = new LBitmapData(loader.content);
+			var bitmap = new LBitmap(bitmapData);
+
+			//加入层LSprite
+			var layer = new LSprite();
+			addChild(layer);
+			layer.addChild(bitmap);
+			field = new LTextField();
+			field.text = "hello JuvoS";
+			field.x = 50;
+			field.y = 50;
+			field.size = 30;
+			field.color = "#fff";
+			field.setType(LTextFieldType.INPUT);
+			layer.addChild(field);
+
+			layer.addEventListener(LMouseEvent.MOUSE_DOWN,downshow);
+			layer.addEventListener(LMouseEvent.MOUSE_UP,upshow);
+		}
+		function downshow(event){
+			field.text = "MOUSE_DOWN!";
+		}
+		function upshow(event){
+			field.text = "MOUSE_UP!";
+		}
+	</script>
+</body>
+</html>
